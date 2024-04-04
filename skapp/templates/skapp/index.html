@@ -1,0 +1,178 @@
+
+{% extends 'skapp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+<!--slider start-->
+
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="media/slider1.jpg" class="d-block w-100 bannerpic" alt="...">
+          </div>
+          {% for x in slider %}
+          <div class="carousel-item">
+            <img src="{{x.image.url}}" class="d-block w-100 bannerpic" alt="...">
+          </div>
+          {% endfor %}
+
+
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+<!--slider End-->
+
+
+
+<!--catagory slider-->
+
+    <div class="container mt-4 cat" >
+
+      <div class="text-center">
+      <h1>Explore Most Popular Categories</h1>
+      <img src="{% static 'img/seperator.png' %}" alt="online shop">
+    </div>
+
+      <div class="owl-carousel">
+        {% for x in cdata %}
+        <div class="text-center">
+          
+            <a href="../categoryproducts/{{x.id}}">
+              <img src={{x.image.url}} class="categorypic"></a>
+            <p><strong class="catname">{{x.name}}</strong></p>
+        </div>
+        {% endfor %}
+         
+      </div>
+    </div>
+    <!--category slider end-->
+    <div class="postcontainer">
+      <div class="posters">
+        <img src="media/post1.webp" alt="">
+        <img src="media/post2.webp" alt="">
+        <img src="media/post3.webp" alt="">
+      </div>
+    </div>
+    
+<section id="bestseller">
+<div id="demo" class="carousel slide" data-ride="carousel">  
+ <ul class="carousel-indicators">
+  <li data-target="#demo" data-slide-to="0" class="active"></li>
+  <li data-target="#demo" data-slide-to="1" ></li>
+  <li data-target="#demo" data-slide-to="2" ></li>
+ </ul>
+  
+  
+ <h1 class="heading">BESTSELLER PRODUCTS</h1>
+
+ <div class="container carousel-inner no-padding">
+   <div class="carousel-item active">
+
+    {% for category,products in products.items %}
+    <h3 class="text-center my-5" id="producthead">Explore our products in {{category}}</h3>
+    {% for y in products %}
+     <div class="col-12 col-sm-3 col-md-3 col-lg-3 ">
+     
+       <div class="card" id="productview">
+        
+        <div class="card-header">
+          <a href="../details/{{y.id}}">
+            <img src="{{y.image.url}}" alt="" class="card-img-top" style="height: 300px">
+          </a>
+
+         </div>
+         <div class="card-body text-center" id="bodycard">
+           <h5 class="card-title">{{y.name}}</h5>
+           <h6 class="card-title overflow-hidden">{{y.title}}</h6>
+           <p>₹ {{y.mrp}}</p>
+           <form method="post" action='add_to_cart'>
+            {% csrf_token %}
+
+            <input type="hidden" name="userid" value="{{user.id}}">
+            <input type="hidden" name="pid" value="{{y.id}}">
+            
+            <input type="submit" name="btncart" class="btn btn-warning" value="Add To Cart" style="width: auto">
+            <input type="submit" name="btncart" class="btn btn-primary" value="Buy Now" style="width: auto">
+            
+           </form>
+          </div>
+        </div>
+       
+     </div>
+     {% endfor %}
+
+    <div class="container" >
+      <div class="row">
+        <div class="col-lg-6 col-6" id="bottompost">
+          <img src="media/offer1.webp" width=100% height=300px>
+        </div>
+        <div class="col-lg-6 col-6" id="bottompost">
+          <img src="media/offer2.webp" width=100% height=300px>
+        </div>
+        
+      </div>
+    </div>
+
+     {% endfor %}
+
+   </div>
+</div> 
+ </div>
+</section>
+
+
+<div class="prodslide">
+  <h2 id="slidetwo">New Releases Products On MyShop</h2>
+ <div class="owl-carousel">
+   {% for x in products %}
+   <div class="text-center">
+    
+      <a href="../details/{{x.id}}">
+        <img src={{x.image.url}} class="productpic">
+        <p><strong>{{x.name}}</strong></p></a>
+   </div>
+   {% endfor %}
+  </div>
+</div>
+
+
+
+    
+
+    <!--promotional banner-->
+
+
+
+    <!--promotional banner end-->
+
+
+    
+
+ 
+      {% include 'skapp/footer.html'%}
+    
+    {% endblock %}
+
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,74 @@
+
+
+{% extends 'skapp/base.html '%}
+
+{% block content %}
+
+<div class="container-fluid bg-primary p-5 text-center">
+    <h1 class="text-white">Create Your Account !!!</h1>
+</div>
+
+
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-3 col-12"></div>
+        <div class="col-lg-6 col-12">
+            <div class="card">
+                <div class="card-header">New User? Create Your Account !!!</div>
+                <div class="card-body">
+
+                    {% if msg %}
+                        {{msg}}
+                    {% endif %}
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+                        <strong>Name :</strong>
+                        <div class="form-group">
+
+                            <input type='text' name="username" class="form-control" placeholder="Type Your Name">
+                        </div>
+
+                        <strong>Email :</strong>
+                        <div class="form-group">
+
+                            <input type='email' name="email" class="form-control" placeholder="Type Your Email">
+                        </div>
+
+                        <strong>Password :</strong>
+                        <div class="form-group">
+
+                            <input type='password' name="password1" class="form-control" placeholder="Type Password">
+                        </div>
+
+                        <strong>Confirm Password :</strong>
+                        <div class="form-group">
+
+                            <input type='password' name="password2" class="form-control" placeholder="Type Same Password Again">
+                        </div>
+
+                       
+                        <div class="form-group">
+
+                            <input type='submit' name="btnsignup" class="btn btn-primary" value="SignUp">
+                        </div>
+
+                        <div>Already have an account?<a href="../login"> Login </a></div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12"></div>
+    </div>
+</div>
+
+ 
+
+{% endblock %}
+

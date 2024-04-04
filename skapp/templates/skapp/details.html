@@ -1,0 +1,40 @@
+{% extends 'skapp/base.html '%}
+
+{% block content %}
+<div class="container-fluid bg-primary p-5 text-center">
+    <h1 class="text-white">Explore Our Trending Products !!!</h1>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4 col-12">
+            <img src="{{data.image.url}}" width=370px height=400px>
+        </div>
+        <div class="col-lg-8 col-12">
+            <h2>{{data.title}}</h2>
+            <p>{{data.name}}</p>
+            <h3>Rs {{data.mrp}}</h3>
+            <p>{{data.discription}}</p>
+            <p>Only <b>{{data.stock}}</b> Availaible in Stock</p>
+
+            <form method="post" action='../add_to_cart'>
+                {% csrf_token %}
+    
+                <input type="hidden" name="userid" value="{{user.id}}">
+                <input type="hidden" name="pid" value="{{data.id}}">
+                <input type="submit" name="btncart" class="btn btn-warning" value="Add To Cart" style="width: auto">
+                <input type="submit" name="btncart" class="btn btn-primary" value="Buy Now" style="width: auto">
+                
+        </form>
+             
+            
+
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

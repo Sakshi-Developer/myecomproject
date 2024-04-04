@@ -1,0 +1,41 @@
+{% extends 'skapp/base.html '%}
+
+{% block content %}
+<div class="container-fluid bg-success p-5 text-center">
+    <h1 class="text-white">Products !!!</h1>
+</div>
+
+<div class="container">
+
+<div class="row">
+    {% for x in data %}
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <a href="../details/{{x.id}}"><img src="{{x.image.url}}" class="product"></a>
+                <p class="text-center">{{x.name}}</p>
+                <h6 class="card-title overflow-hidden">{{x.title}}</h6>
+                <p class="text-center"><b>₹ {{x.mrp}}</b></p>
+
+                <form method="post" action='../add_to_cart'>
+                    {% csrf_token %}
+        
+                    <input type="hidden" name="userid" value="{{user.id}}">
+                    <input type="hidden" name="pid" value="{{x.id}}">
+                    
+                    <input type="submit" name="btncart" class="btn btn-warning" value="Add To Cart" style="width: auto">
+                    
+                   </form>
+
+            </div>
+
+        </div>
+    </div>
+    
+
+   {% endfor %}
+    
+</div>
+
+</div>
+{% endblock %}
